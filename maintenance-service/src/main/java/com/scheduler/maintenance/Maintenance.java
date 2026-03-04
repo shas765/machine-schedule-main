@@ -14,9 +14,9 @@ public class Maintenance {
 
     private String description;
 
-    private LocalDate date;          // changed from String → LocalDate
+    private LocalDate date;          
 
-    private LocalDate nextDueDate;   // ✅ new field
+    private LocalDate nextDueDate;   
 
     public Long getId() {
         return id;

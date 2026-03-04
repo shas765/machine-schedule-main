@@ -39,7 +39,7 @@ public class MachineController {
         return service.updateStatus(id, status);
     }
 
-    // Delete Machine (optional but useful)
+    // Delete Machine (optional)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.deleteMachine(id);

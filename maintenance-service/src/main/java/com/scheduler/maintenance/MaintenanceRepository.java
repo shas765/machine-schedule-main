@@ -7,7 +7,7 @@ import java.util.List;
 public interface MaintenanceRepository 
         extends JpaRepository<Maintenance, Long> {
 
-    // ✅ For upcoming due tasks
+    
     List<Maintenance> findByNextDueDateBetween(
             LocalDate startDate,
             LocalDate endDate);

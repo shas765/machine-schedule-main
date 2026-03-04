@@ -17,14 +17,14 @@ public class MaintenanceController {
         this.machineClient = machineClient;
     }
 
-    // ✅ Create maintenance task
+    
     @PostMapping
     public Maintenance create(@RequestBody Maintenance maintenance) {
 
-        // Check if machine exists
+        
         machineClient.getMachine(maintenance.getMachineId());
 
-        // OPTIONAL (recommended): Change machine status
+        
         machineClient.updateStatus(
                 maintenance.getMachineId(),
                 "UNDER_MAINTENANCE"
@@ -33,20 +33,20 @@ public class MaintenanceController {
         return repository.save(maintenance);
     }
 
-    // ✅ Get all maintenance tasks
+    
     @GetMapping
     public List<Maintenance> getAll() {
         return repository.findAll();
     }
 
-    // ✅ Get maintenance by ID
+    
     @GetMapping("/{id}")
     public Maintenance getById(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Maintenance not found"));
     }
 
-    // ✅ Update maintenance record properly
+    
     @PutMapping("/{id}")
     public Maintenance update(@PathVariable Long id,
                               @RequestBody Maintenance updated) {
@@ -62,7 +62,7 @@ public class MaintenanceController {
         return repository.save(existing);
     }
 
-    // ✅ NEW — Query upcoming due tasks
+
     @GetMapping("/upcoming")
     public List<Maintenance> getUpcomingTasks() {
 
