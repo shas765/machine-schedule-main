@@ -4,17 +4,39 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+// ✅ ADD THESE IMPORTS
+import feign.FeignException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 @Service
 public class MaintenanceService {
 
     private final MaintenanceRepository repository;
 
-    public MaintenanceService(MaintenanceRepository repository) {
+    // ✅ ADD THIS
+    private final MachineClient machineClient;
+
+    // ✅ MODIFY CONSTRUCTOR (only add MachineClient)
+    public MaintenanceService(MaintenanceRepository repository,
+                              MachineClient machineClient) {
         this.repository = repository;
+        this.machineClient = machineClient;
     }
 
     // Create maintenance
     public Maintenance create(Maintenance maintenance) {
+
+        // ✅ ADD MACHINE VALIDATION
+        try {
+            machineClient.getMachineById(maintenance.getMachineId());
+        } catch (FeignException.NotFound ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Machine does not exist"
+            );
+        }
+
         return repository.save(maintenance);
     }
 
@@ -46,7 +68,6 @@ public class MaintenanceService {
         repository.deleteById(id);
     }
 
-    
     public List<Maintenance> getUpcomingTasks() {
 
         LocalDate today = LocalDate.now();

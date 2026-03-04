@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "machine-service")
 public interface MachineClient {
 
+    // ✅ Renamed method to match MaintenanceService call
     @GetMapping("/machines/{id}")
-    Object getMachine(@PathVariable("id") Long id);
+    Object getMachineById(@PathVariable("id") Long id);
 
     @PutMapping("/machines/{id}/status")
     void updateStatus(@PathVariable("id") Long id,
