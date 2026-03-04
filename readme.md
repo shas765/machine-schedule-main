@@ -52,3 +52,15 @@ Start each service in separate terminals.
 cd (Path of the Microservice)
 mvn spring-boot:run
 
+## Swagger API Usage
+
+Swagger (OpenAPI) is integrated into the Machine Service and Maintenance Service for API documentation and testing.
+
+Access Swagger UI
+Machine Service
+
+http://localhost:8081/swagger-ui/index.html
+
+Maintenance Service
+
+http://localhost:8082/swagger-ui/index.html
